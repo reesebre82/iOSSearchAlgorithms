@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarColletion{
+class BarCollection{
     
     private var rows: Int
     private var width: CGFloat

@@ -10,18 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //View to show number of bars to sort
     var sliderBox = UITextView()
+    //View to show the time it takes for a sort to complete
     var timeBox = UITextView()
+    //Value to hold slider information
     var lastKnownSliderValue = 0
-    var barCollection = BarColletion(bars: 20, box: UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50)))
+    //BarCollection is the object that holds the entire array of bars
+    var barCollection = BarCollection(bars: 20, box: UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50)))
+    //box is the container for the barCollection
     var box = UIView()
+    //Slider to determine how many bars there will be
     var slider = UISlider()
+    
+    //timeStamp variables for the timer
     var timeMillis = 0
     var timeSeconds = 0
     var timer = Timer()
     
     var buttons = [UIButton]()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -31,7 +40,8 @@ class ViewController: UIViewController {
     }
     
     
-    
+    //setScene is a function that will set up the overall page.
+    //this will set up the sliders, buttons and mainView
     func setScene(){
         let shift = self.view.frame.width * 0.2
         let topView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * 0.1))
@@ -130,6 +140,8 @@ class ViewController: UIViewController {
         sliderValueDidChange(sender: slider)
     }
     
+    //sliderValueDidChange is a function to update the scenen and BarCollection when
+    //the slider is updated
     @objc func sliderValueDidChange(sender:UISlider!){
         sliderBox.text = "\(Int(sender.value))"
         if(Int(sender.value) != lastKnownSliderValue){
@@ -140,11 +152,12 @@ class ViewController: UIViewController {
             for collection in box.subviews{
                 collection.removeFromSuperview()
             }
-            barCollection = BarColletion(bars: Int(sender.value), box: box)
+            barCollection = BarCollection(bars: Int(sender.value), box: box)
             box.addSubview(barCollection.getView())
         }
     }
     
+    //randomize will randomize the values in the barCollection
     @objc func randomize(sender: UIButton){
         print("randomized pressed")
         for i in box.subviews{
@@ -153,10 +166,11 @@ class ViewController: UIViewController {
         for collection in box.subviews{
             collection.removeFromSuperview()
         }
-        barCollection = BarColletion(bars: lastKnownSliderValue, box: box)
+        barCollection = BarCollection(bars: lastKnownSliderValue, box: box)
         box.addSubview(barCollection.getView())
     }
     
+    //bubbleSort is the button to initialize the bubble sort algorithm
     @objc func bubbleSort(sender: UIButton){
         print("bubbleSortPressed")
         if(!barCollection.getSorted()){
@@ -166,6 +180,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //quickSort is the button to initialize the bubble sort algorithm
     @objc func quickSort(sender: UIButton){
         print("quickSortPressed")
         if(!barCollection.getSorted()){
@@ -175,6 +190,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //selectionSort is the button to initialize the bubble sort algorithm
     @objc func selectionSort(sender: UIButton){
         print("selectionSortPressed")
         if(!barCollection.getSorted()){
@@ -184,6 +200,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //Function to start reset timer to 0 and start it
     func startTimer(){
         timeMillis = 0
         timeSeconds = 0
@@ -191,6 +208,7 @@ class ViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(checkTimer(sender:)), userInfo: nil, repeats: true)
     }
     
+    //function to check if sort has been completed and to stop timer if so
     @objc func checkTimer(sender: Timer){
         if barCollection.getSorted() {
             sender.invalidate()
@@ -203,6 +221,7 @@ class ViewController: UIViewController {
         updateTime()
     }
     
+    //function to update the timer displayed to the user
     func updateTime(){
         if timeMillis > 9{
             timeBox.text = "Sort Time: \(timeSeconds).\(timeMillis)"
@@ -211,6 +230,7 @@ class ViewController: UIViewController {
         }
     }
     
+
     func stopButtons(){
         for button in buttons{
             button.isEnabled = false
