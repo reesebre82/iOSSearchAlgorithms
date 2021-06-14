@@ -5,7 +5,7 @@ but I wanted to implement it into one of my favorite ways: through an iOS App!
 
 
 This implementation of the sorting algorithms creates clear examples of the benefits
-of certain algorithms over others. 
+of using certain algorithms over others. 
 
 The only struggle that I ran into during this Application is the speed processors run at.
 At the sample size, every algorithm would complete within milliseconds. 
