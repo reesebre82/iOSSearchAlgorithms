@@ -16,3 +16,8 @@ at each loop to make it possible to see what is happening during the sort.
 
 
 Here is a quick screen recording of the result:
+
+
+
+https://user-images.githubusercontent.com/59515026/121884179-39d20700-ccd8-11eb-8106-8dc3f13b45ac.mp4
+
